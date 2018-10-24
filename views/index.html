@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+    <p>index1</p>
+    <a href="user.html">用户</a>
+    <a href="./dzH5/index.html">点赞</a>
+    <script type="text/javascript">
+        window.onload = function (ev) {
+            var url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET'
+            $.ajax({
+                type: 'get',
+                url: '/user',
+                async: true,
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data)
+                    if (data.errcode) {
+                        document.querySelector('.msg').innerText = data.errmsg
+                    }
+                    window.localStorage.setItem('appId', data.appID) // 公众号的唯一标识
+                    window.localStorage.setItem('timestamp', data.timestamp) // 生成签名的时间戳
+                    window.localStorage.setItem('nonceStr', data.nonceStr) // 生成签名的随机串
+                    window.localStorage.setItem('signature', data.signature) // 签名
+                },// ajax err
+                error: function (err) {
+                    console.log('错误')
+                    console.log(err)
+                }
+            })
+        }
+    </script>
+</body>
+</html>

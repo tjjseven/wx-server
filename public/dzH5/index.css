@@ -1,0 +1,149 @@
+/*com*/
+body, section, div, h1, h2, h3, h4, h5, h6, p, ul, dl, li, a, span, i, input, select, textarea, button, pre, code{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, 微软雅黑, Microsoft yahei, Hiragino Sans GB, STXihei, 华文细黑, SimSun, 宋体, Heiti, 黑体, sans-serif;
+    list-style: none;
+    font-weight: normal;
+    color: #666;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+}
+html{
+    /*font-size: 13.333333333333334vw;*/
+}
+.map{
+    width: 90%;
+    height: 5rem;
+    background: #0b93d5;
+    margin: 2rem auto 1rem;
+    border-radius: 7px;
+}
+.btn{
+    display:block;
+    /*width:10rem;*/
+    width: 3.5rem;
+    padding:.16rem 0;
+    background: yellow;
+    color: red;
+    border-radius: .4rem;
+    margin: 0 auto 1rem;
+    text-align: center;
+}
+.about_list, .list, .form{
+    background: #ccc;
+    border-radius: .2rem;
+    margin:0 .3rem;
+}
+.about_list>h2{
+    padding-top: .4rem;
+    text-align: center;
+}
+.about_list>a{
+    display: block;
+    padding: .1rem 0;
+    text-align: center;
+}
+.rule{
+    margin: 0 .5rem;
+}
+.rule>h3{
+    text-align: center;
+    padding: .3rem 0;
+}
+.weui-btn.get_addr{
+    width: 62%;
+    line-height: 2;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 16px;
+}
+.form{
+    margin-top: 2rem;
+}
+.form .weui-btn{
+    margin-left:0
+}
+.sub_form{
+    margin-top: 1rem;
+}
+
+.weui-dialog{
+    overflow-y: auto !important;
+    height:500px;
+}
+.dialog_contemt, .dialog_contemt img{
+    width: 100%;
+}
+.dialog_contemt, .weui-dialog__hd, .weui-dialog__btn{
+    text-align: center;
+}
+.weui-dialog__title{
+    display: block;
+    text-align: center;
+    color:#fff;
+}
+.weui-dialog__hd{
+    padding-top: 0;
+}
+.weui-dialog__bd{
+    background: #79dcff;
+}
+.weui-dialog, .weui-dialog__ft{
+    background: none;
+}
+.weui-dialog__ft{
+    margin-top: .5rem;
+    display: block;
+}
+.weui-dialog .pop_addr{
+    margin: .1rem 0;
+}
+.pop_div .weui-dialog__btn_default, .pop_div .weui-dialog__btn_primary{
+    border-radius: 1rem;
+}
+.pop_div .weui-dialog__btn_default{
+    background: red;
+    color:#fff;
+    float: left;
+}
+.pop_div .weui-dialog__btn_primary{
+    background: yellow;
+    color:red;
+    float: right;
+}
+.weui-dialog__btn:after, .weui-dialog__ft:after{
+    border:none;
+}
+.weui-dialog__ft>a{
+    width: 46%;
+}
+.weui-skin_android .weui-dialog__ft{
+    text-align: center !important;
+    padding: 0 !important;
+}
+.pop_div .weui-dialog__btn{
+    flex: none;
+}
+.weui-skin_android .weui-dialog__btn:last-child{
+    margin-right: 0 !important;
+}
+.weui-skin_android .weui-dialog__btn{
+    padding: 0 !important;
+}
+.shareInfo{
+    display: none;
+    padding: .1rem 0;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    text-align: center;
+    background: rgba(0,0,0,.6);
+    /*opacity: .6;*/
+    color: #fff;
+}
+.pop_school{
+    padding-top: .7rem;
+}

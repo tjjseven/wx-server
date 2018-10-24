@@ -1,0 +1,208 @@
+
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.swiper-container{
+    width:100%;
+    height: 100%;
+}
+.swiper-slide{
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+}
+
+.swiper-slide1{
+    background-image:url(../img/bg-1.png)
+}
+
+.swiper-slide2{
+    background-image:url(../img/bg-2.png)
+}
+
+.swiper-slide3{
+    background-image:url(../img/bg-3.png)
+}
+
+.swiper-slide4{
+    background-image:url(../img/bg-4.png)
+}
+
+.swiper-slide5{
+    background-image:url(../img/bg-5.png)
+}
+
+.swiper-slide6{
+    background-image:url(../img/bg-6.png)
+}
+
+.swiper-slide1 img{
+    width: 100%;height: 100%;
+}
+
+.swiper-slide1 .contain{
+    width: 270px;height:400px;margin:80px auto;
+}
+
+.swiper-slide1 .contain .logo{
+    width:162px;height:167px !important;margin: 0px auto;height: 100px;
+}
+
+.swiper-slide1 .contain .invitation{
+    width:55px;height:180px;margin: 25px auto;
+}
+
+.swiper-slide1 .fixed{
+    position:absolute;width: 76px;bottom:45px;margin-left:-38px;left:50%;animation-iteration-count:infinite;
+}
+
+.swiper-slide2 .content{
+    position:absolute;width:83%;height:440px;margin-top: 60px;
+}
+
+.swiper-slide2 .content #box{
+    width: 100%;height: 100%;position:relative;overflow:hidden;margin-left:15px;
+}
+.swiper-slide2 .content #scroll_text1{
+    height: 100%;position:absolute;left: -170%;
+}
+
+.swiper-slide2 .xiaoyou{
+    position:absolute;width: 24px;height:150px;top: 60px;right:15px;
+}
+
+.swiper-slide2 .xiaoyou img{
+    width: 100%;height: 100%;
+}
+
+.swiper-slide3 .content{
+    width:300px;height:270px;margin:120px auto;background-image:url(../img/hd-bg.png);background-size: 100% 100%;overflow: hidden;
+}
+
+.swiper-slide3 .content div{
+    width:240px;height:200px;
+}
+
+.swiper-slide3 .content img{
+    width: 100%;height: 100%;    margin-top: 20px;margin-left: 10px;
+}
+
+.swiper-slide4 .head{
+    width: 272px;height:57px;margin:40px auto;
+}
+
+.swiper-slide4 img{
+    width: 100%;height:100%;
+}
+
+.swiper-slide4 .content{
+    width:300px;height:280px;margin:50px auto 20px;background-image:url(../img/lx-bg.png);background-size: 100% 100%;
+}
+
+.swiper-slide4 .content .txt1{
+    width:300px;margin:auto;
+}
+
+.swiper-slide4 .txt1 img{
+    margin-top:25px;
+}
+
+.swiper-slide4 .content .main{
+    width:300px;height:180;margin:20px auto;display: flex;justify-content: space-around;
+}
+
+.swiper-slide4 .content .Img{
+    width:130px;height:160px;
+}
+
+.swiper-slide4 .foot{
+    width:250px;height:74px;margin: 5px auto;
+}
+
+.swiper-slide5 .head{
+    width: 100%;height:80px;background-image:url(../img/banner.png);background-size: 100% 100%;
+}
+
+.swiper-slide5 .bm-mask{
+    display: none;
+    position: absolute;
+}
+
+.swiper-slide5 .bm-mask .bm-content{
+    top:0;left: 0;right: 0;bottom: 0;margin:150px auto;width: 240px;height: 260px; background:#fff;height: 200px;position: relative;
+}
+
+.swiper-slide5 .bm-mask h2{
+    line-height:60px;text-align:center;
+}
+
+.swiper-slide5 .bm-mask .bm-img{
+    width:120px;height:120px;margin:0 auto;padding-top: 20px;
+}
+
+.swiper-slide5 .bm-mask .bm-btn{
+    width:90%;margin:5px auto;
+}
+
+.swiper-slide5 .bm-mask img{
+    width:100%;height:100%;
+}
+
+
+
+.swiper-slide6 img{
+    width:100%;height:100%;
+}
+
+.swiper-slide6 .logo1{
+    width:261px;height:150px;margin: 80px auto 10px;
+}
+
+.swiper-slide6 .share{
+    width:300px;height:37px;margin:30px auto;
+}
+
+.swiper-slide6 .shareBtn{
+    width: 120px; height: 35px;margin: 40px auto;
+}
+
+.swiper-slide6 .share-bg{
+    display: none;
+    position: absolute;
+}
+
+.swiper-slide6 .share-bg div{
+    width: 80%;height: 300px;margin:20px auto;
+}
+
+#btn-music{
+    position:absolute;top:10px;right: 10px;width: 25px;height: 25px;z-index: 9999;
+}
+
+#btn-music img{
+    width: 100%;height: 100%;
+}
+
+#btn-music .hide{
+    display: none;
+}
+
+@-webkit-keyframes play{
+    0%{-webkit-transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+@-moz-keyframes play {
+    0%{-moz-transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+@keyframes play{
+    0%{transform: rotate(0deg);}
+    100%{transform: rotate(360deg);}
+}
+
+#btn-music #btn-music-on{
+    -webkit-animation: play 3s linear infinite;
+    -moz-animation: play 3s linear infinite;
+     animation: play 3s linear infinite;
+}

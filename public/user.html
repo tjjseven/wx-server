@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>jssdk定位</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <!--<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js "></script>-->
+    <script type="text/javascript" src="./javascripts/gps.js"></script>
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=pBZ1pAlmftcQrQleqITRKqi6UrewIuNe"></script>
+    <style>
+        body{
+            font-size: 16px;
+        }
+        #map{
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p>user</p>
+    <button>获取</button>
+    <p class="msg"></p>
+    <a href="./wxdzH5/index.html">点亮</a>
+    <span>定位中</span>
+    <div id="map"></div>
+    <script type="text/javascript">
+        window.onload = function () {
+            // 1 通过config接口注入权限验证配置
+            wx.config({
+                // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                debug: true,
+                appId: localStorage.getItem('appId'), // 必填，公众号的唯一标识
+                timestamp: localStorage.getItem('timestamp'), // 必填，生成签名的时间戳
+                nonceStr: localStorage.getItem('nonceStr'), // 必填，生成签名的随机串
+                signature: localStorage.getItem('signature'),// 必填，签名
+                jsApiList: [ // 必填，需要使用的JS接口列表
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo',
+                    'onMenuShareQZone',
+                    'hideMenuItems',
+                    'showMenuItems',
+                    'hideAllNonBaseMenuItem',
+                    'showAllNonBaseMenuItem',
+                    'translateVoice',
+                    'startRecord',
+                    'stopRecord',
+                    'onVoiceRecordEnd',
+                    'playVoice',
+                    'onVoicePlayEnd',
+                    'pauseVoice',
+                    'stopVoice',
+                    'uploadVoice',
+                    'downloadVoice',
+                    'chooseImage',
+                    'previewImage',
+                    'uploadImage',
+                    'downloadImage',
+                    'getNetworkType',
+                    'openLocation',
+                    'getLocation',
+                    'hideOptionMenu',
+                    'showOptionMenu',
+                    'closeWindow',
+                    'scanQRCode',
+                    'chooseWXPay',
+                    'openProductSpecificView',
+                    'addCard',
+                    'chooseCard',
+                    'openCard'
+                ]
+            });
+
+            // 2 通过ready接口处理成功验证
+            wx.ready(function(){
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，
+                // config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。
+                // 对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+                console.log('请求成功');
+                // wx.checkJsApi({
+                //     jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                //     success: function(res) {
+                //         console.log('可用的api：'+ res)
+                //         // 以键值对的形式返回，可用的api值true，不可用为false
+                //         // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                //          if (res.checkResult.getLocation == false) {
+                //              alert('你的微信版本太低，不支持微信JS接口，请升级到最新的微信版本！');
+                //              return;
+                //          }
+                //     },
+                //     fail: function (err) {
+                //         console.log('失败')
+                //     }
+                // });
+                setTimeout(function(){
+                    // API 1 请求位置
+                    wx.getLocation({
+                        type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                        success: function (res) {
+                            console.log(res);
+                            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                            var speed = res.speed; // 速度，以米/每秒计
+                            var accuracy = res.accuracy; // 位置精度
+                            //调用当前位置初始化方法
+                            // fmp.GPSlocation.initLocateInfo(res);
+                            // baiduLocation(res.longitude, res.latitude);
+                            // var json = GPS.bd_encrypt(latitude, longitude);
+                            // console.log("json" + JSON.stringify(json));
+
+                            $.ajax({
+                                // 周边url: 'http://api.map.baidu.com/geocoder/v2/?ak=pBZ1pAlmftcQrQleqITRKqi6UrewIuNe&callback=renderReverse&location=' + latitude + ',' + longitude + '&output=json&pois=1',
+                                url: 'http://api.map.baidu.com/geoconv/v1/?coords='+ longitude + ',' + latitude + '&from=1&to=5&ak=pBZ1pAlmftcQrQleqITRKqi6UrewIuNe&callback=getMap',
+                                type: "get",
+                                dataType: "jsonp",
+                                jsonp: "callback",
+                                success: function (data) {
+                                    console.log(data);
+                                    // var name = (data.result.formatted_address);
+                                    baiduLocation(data.result[0].x, data.result[0].y);
+
+                                }
+                            })
+
+                            // baiduLocation(114.4433773302, 30.4878932090);
+                            // baiduLocation(longitude, latitude)
+
+                            // wx.openLocation({
+                            //     latitude: data.result[0].y, // 纬度，浮点数，范围为90 ~ -90
+                            //     longitude: data.result[0].x, // 经度，浮点数，范围为180 ~ -180。
+                            //     name: '我的位置', // 位置名
+                            //     address: 'as', // 地址详情说明
+                            //     scale: 13, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                            //     infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                            // });
+                        }
+                    });
+
+                    function baiduLocation(longitude, latitude){
+                        var map = new BMap.Map("map");          // 创建地图实例
+                        var point = new BMap.Point(longitude, latitude);  // 创建点坐标
+                        map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+                        var marker = new BMap.Marker(point);        // 创建标注
+                        map.addOverlay(marker);                     // 将标注添加到地图中
+                        marker.setAnimation(BMAP_ANIMATION_BOUNCE) //跳动的动画
+
+                        var myGeo = new BMap.Geocoder();
+                        // 根据坐标得到地址描述
+                        myGeo.getLocation(new BMap.Point(longitude, latitude), function(result){
+                            if (result){
+                                console.log("您当前的位置：" + result.address);
+                                console.log(result)
+                                document.querySelector('span').innerText = result.address
+                            }
+                        });
+                    }
+
+
+
+
+
+
+                },3000);
+
+                // API 2 分享到QQ
+                wx.onMenuShareQQ({
+                    title: '标题', // 分享标题
+                    desc: '这里是QQ分享的内容', // 分享描述
+                    link: '127.0.0.1:80', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                    // imgUrl: '', // 分享图标
+                }, function(res) {
+                    //这里是回调函数
+                    console.log(res)
+                });
+            });
+
+            // 3 通过error接口处理失败验证
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，
+            // 具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+            wx.error(function(err){
+                console.log('请求失败');
+                console.log(err)
+            });
+
+
+
+        }
+
+    </script>
+</body>
+</html>

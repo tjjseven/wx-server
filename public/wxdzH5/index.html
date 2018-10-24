@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+    <!--<link rel="stylesheet" href="./css/swiper-4.3.5.min.css">-->
+    <!--<link rel="stylesheet" href="./css/weui.css">-->
+    <!--<link rel="stylesheet" href="./css/jquery-weui.css">-->
+    <!--<link rel="stylesheet" href="./css/style.css">-->
+    <link rel="stylesheet" href="./css/index.css">
+    <!--<link rel="stylesheet" href="./css/annimate.min.css">-->
+
+
+</head>
+<body class="body">
+<!-- 背景音乐
+<audio src = "" id="music" loop="loop" autoplay="autoplay" ></audio>
+<!音乐按钮-->
+<div id="btn-music" > 
+    <!--<img src="./img/music.png" alt="" id="btn-music-on" />-->
+    <!--<img src="./img/music-p.png" alt="" id="btn-music-off" class="hide" />-->
+</div>
+<!-- <div id="btn-music" >  -->
+    <audio src = "./music.mp3" id="music" loop="loop" autoplay="autoplay" ></audio>
+<!-- </div> -->
+
+<div class="logo_div">
+    <img src="" alt="" class="logo">
+</div>
+<div class="content">
+    <img src="" alt="" class="title">
+    <p class="time_addr">10.28 湖北 武汉</p>
+    <a class="like_btn" href="./like.html">为母校点赞</a>
+    <div>校友会</div>
+</div>
+<!--<div class="weui-flex">-->
+    <!--<div class="weui-flex__item">weui</div>-->
+<!--</div>-->
+
+
+</body>
+<script src="./js/jquery-2.1.4.js"></script>
+<!--<script src="./js/index.js"></script>-->
+
+<!--<script src="./js/swiper-4.3.5.min.js"></script>-->
+<!--<script src="./js/fastclick.js"></script>-->
+<!--<script src="./js/jquery-weui.js"></script>-->
+<!--<script src="./js/swiper.animate1.0.3.min.js"></script>-->
+<script src="js/TweenMax.min.js"> </script>
+<script src="./js/main.js"></script>
+
+
+<script>
+        TweenMax.to(".logo_div", 0.7, {left:10, repeat:0});
+        TweenMax.to(".title", 0.7, {bottom:0, repeat:0});
+        TweenMax.to(".time_addr", 0.7, {right:0, repeat:0});
+</script>
+</html>

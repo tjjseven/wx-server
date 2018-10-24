@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="./css/index.css">
+    <!--<link rel="stylesheet" href="./css/swiper-4.3.5.min.css">-->
+    <!--<link rel="stylesheet" href="./css/weui.css">-->
+    <!--<link rel="stylesheet" href="./css/jquery-weui.css">-->
+    <!--<link rel="stylesheet" href="./css/style.css">-->
+    <!--<link rel="stylesheet" href="./css/annimate.min.css">-->
+    <style>
+        body{
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        html,body{
+            overflow:hidden;
+        }
+    </style>
+</head>
+<body class="anim_body">
+<section class="anim_box">
+    <div class="cloud cloud1">云1</div>
+    <div class="cloud cloud2">云2</div>
+    <div class="aplan">云3</div>
+    <div class="sun"></div>
+    <div class="blocks blocks1"></div>
+    <div class="blocks blocks2"></div>
+    <div class="train"></div>
+    <div class="touch_box"></div>
+    <div class="car"></div>
+    <div class="addr"></div>
+    <div class="go_next"><a href="./home.html"></a></div>
+    <div class="buy_bus"><a href="./home.html"></a></div>
+</section>
+<!--<script src="./js/swiper-4.3.5.min.js"></script>-->
+<!--<script src="./js/fastclick.js"></script>-->
+<!--<script src="./js/jquery-weui.js"></script>-->
+
+
+<!--<script src="./js/swiper.animate1.0.3.min.js"></script>-->
+<script src="./js/jquery-2.1.4.js"></script>
+<script src="js/TweenMax.min.js"> </script>
+<script src="js/main.js"> </script>
+
+<script>
+    function getStyle(obj, attr) {
+        try {
+            return getComputedStyle(obj, null)[attr];
+        } catch (e) {
+            return obj.currentStyle[attr];
+        }
+    };
+    TweenMax.to(".cloud", 0.5, {scaleX:.6, repeat:5, yoyo:true, ease: SteppedEase.easeOut,yoyoEase:false});
+    TweenMax.to('.aplan', 0.5, {scale:0.2, skewY:20, repeat:5, yoyo:true});
+    TweenMax.to('.sun', 0.6, {rotation:360, repeat:4, ease: Linear.easeNone, onComplete: function () {
+            // alert(1)
+            var eles = document.querySelectorAll('.cloud1, .cloud2, .aplan, .sun');
+                console.log(eles);
+            // eles.forEach(function (item, index) {
+            //     console.log(item)
+            //     item.style.opacity = 0;
+            //     item.style.transition = 'all .3s linear';
+            //     document.querySelector('section').style.backgroundColor = '#ccc'
+            // })
+            for (var i = 0; i < eles.length; i++) {
+                eles[i].style.opacity = 0;
+                eles[i].style.transition = 'all .3s linear';
+            }
+            document.querySelector('section').style.backgroundColor = '#ccc';
+            TweenMax.to('.blocks', 1.5, {y:200})
+            TweenMax.to('.train', 3, {left:-500, onComplete: function () {
+                    $('.blocks').hide()
+
+                    document.querySelector('.buy_bus').style.display = 'block'
+                    // document.querySelector('.buy_bus').style.cssText += ';display:block; z-index:999';
+                    TweenMax.to('.addr', 1.5, {opacity: 1, top: 220});
+                    TweenMax.to('.buy_bus', .5, {repeat: -1, bottom:20, yoyo:true});
+
+                    document.querySelector('section').style.backgroundColor = '#74adcc';
+                    var touchDiv = document.querySelector('.touch_box'),
+                        car = document.querySelector('.car'),
+                        $go_next = $('.go_next'),
+                        go_next = document.querySelector('.go_next'),
+                        touch,
+                        startPos,
+                        scrollDirection,
+                        endPos;
+                    touchDiv.ontouchstart = function(event){
+                        touch = event.targetTouches[0];//取得第一个touch的坐标值
+                        startPos = {x:touch.pageX,y:touch.pageY};
+                        scrollDirection = 0;
+                    }
+                    touchDiv.ontouchmove = function(event){
+                        // 如果有多个地方滑动，我们就不发生这个事件
+                        if(event.targetTouches.length > 1){
+                            return
+                        }
+                        touch = event.targetTouches[0];
+                        endPos = {x:touch.pageX,y:touch.pageY};
+                        // 判断出滑动方向，向右为1，向左为-1
+                        scrollDirection = (touch.pageX - startPos.x) > 0 ? true : false;
+                        var touchDis = touch.pageX - startPos.x;
+                        if(scrollDirection){
+                            console.log('右滑动')
+                            car.style.left = $('.car').position().left - touchDis + 'px';
+                            car.style.top = $('.car').position().top + touchDis  + 'px';
+                            if($('.car').position().left < 0){
+                                car.style.left = 0 + 'px';
+                                car.style.top = 420 + 'px'
+                            }
+
+                            if(parseInt(getStyle(go_next, 'bottom')) >= 50 ){
+                                $go_next.css({bottom: 50 + 'px'})
+                            }else{
+                                $go_next.css({bottom: touchDis + 'px'})
+                            }
+
+                        }else{
+                            console.log('左滑动')
+                            car.style.left = $('.car').position().left - touchDis + 'px'
+                            car.style.top = $('.car').position().top + touchDis + 'px'
+
+                            $go_next.css({bottom: parseInt(getStyle(go_next, 'bottom')) + touchDis + 'px'})
+
+                            if($('.car').position().left > window.innerWidth){
+                                car.style.left =  window.innerWidth + 'px'
+                                car.style.top = 50 + 'px'
+                            }
+                            if(parseInt(getStyle(go_next, 'bottom')) < -$go_next.height()){
+                                $go_next.css({bottom: -$go_next.height() + 'px'})
+                            }
+                            console.log(parseInt(getStyle(go_next, 'bottom')))
+                        }
+                        $('.go_next').css({zIndex: 1000})
+
+                    }
+                    // touchDiv.ontouchend = function(){
+                    //     // console.log(scrollDirection)
+                    //     var touchDis = touch.pageX - startPos.x;
+                    //     if(scrollDirection === 0){
+                    //         return
+                    //     }
+                    //     if(scrollDirection){
+                    //         console.log('右滑动')
+                    //         car.style.right = touchDis + 'px'
+                    //     }else{
+                    //         console.log('左滑动')
+                    //         car.style.right = -touchDis + 'px'
+                    //     }
+                    //     console.log(touchDis)
+                    // }
+
+                        
+                }})
+        }})
+</script>
+</body>
+</html>
