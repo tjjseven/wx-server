@@ -33,8 +33,6 @@
 //
 // })(document, window);
 
-
-
 //designWidth:设计稿的实际宽度值，需要根据实际设置
 //maxWidth:制作稿的最大宽度值，需要根据实际设置
 //这段js的最后面有两个参数记得要设置，一个为设计稿实际宽度，一个为制作稿最大宽度，例如设计稿为750，最大宽度为750，则为(750,750)
@@ -86,7 +84,6 @@
 // })(750, 750);
 
 
-
 (function(doc,win){
     var docEl =doc.documentElement,
         resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -100,9 +97,6 @@
     win.addEventListener(resizeEvt, recalc, false);
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document,window)
-
-
-
 
 // (function flexible (window, document) {
 //     var docEl = document.documentElement
@@ -151,98 +145,101 @@
 
 // weui.alert('alert');
 
-var btnSubmit = document.querySelector('.sub_form');
-btnSubmit.onclick = function () {
-    weui.dialog({
-        title: '已点亮祝福',
-        content: '<div class="dialog_contemt"><p class="pop_school">我是清华大学校友</p><p class="pop_addr">我在湖北</p><p>祝福母校：<span>越来越好</span></p>' +
-        '<div class="img_div"><img src="./img/123.png" alt=""></div></div>',
-        className: 'pop_div',
-        buttons: [{
-            label: '返回首页',
-            type: 'default',
-            onClick: function () {
-                // alert('取消')
-            }
-        }, {
-            label: '保存图片分享',
-            type: 'primary',
-            onClick: function () {
-                // alert('确定')
-                /* 保存HTML为图片 */
-                document.querySelector('.weui-dialog__ft').style.display = 'none'
-                // html2canvas(document.querySelector(".weui-dialog")).then(function(canvas){
-                //     // var imgUri = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // 获取生成的图片的url
-                //     // window.location.href= imgUri;
-                //     // console.log(imgUri)
-                //     var img = new Image(), dataUrl = canvas.toDataURL("image/png");
-                //     img.src = dataUrl;
-                //     // img.onload = function () {
-                //     //     dataUrl = canvas.toDataURL("image/png")
-                //     //s }
-                //     document.body.appendChild(img)
-                //
-                // });
-
-                convert2canvas()
-                function convert2canvas() {
-
-                    var cntElem = document.querySelector(".weui-dialog__bd");
-
-                    var shareContent = cntElem;//需要截图的包裹的（原生的）DOM 对象
-                    var width = shareContent.offsetWidth; //获取dom 宽度
-                    var height = shareContent.offsetHeight; //获取dom 高度
-                    var canvas = document.createElement("canvas"); //创建一个canvas节点
-                    var scale = 2; //定义任意放大倍数 支持小数
-                    canvas.width = width * scale; //定义canvas 宽度 * 缩放
-                    canvas.height = height * scale; //定义canvas高度 *缩放
-                    var content = canvas.getContext("2d")
-                    content.scale(scale,scale); //获取context,设置scale
-                    var rect = shareContent.getBoundingClientRect();//获取元素相对于视察的偏移量
-                    content.translate(-rect.left,-rect.top);//设置context位置，值为相对于视窗的偏移量负值，让图片复位
-                    var opts = {
-                        dpi: window.devicePixelRatio*2,
-                        scale: scale, // 添加的scale 参数
-                        canvas: canvas, //自定义 canvas
-                        // logging: true, //日志开关，便于查看html2canvas的内部执行流程
-                        width: width, //dom 原始宽度
-                        height: height,
-                        useCORS: true // 【重要】开启跨域配置
-                    };
-
-                    html2canvas(shareContent, opts).then(function (canvas) {
-
-                        var context = canvas.getContext('2d');
-                        // 【重要】关闭抗锯齿
-                        context.mozImageSmoothingEnabled = false;
-                        context.webkitImageSmoothingEnabled = false;
-                        context.msImageSmoothingEnabled = false;
-                        context.imageSmoothingEnabled = false;
-
-                        // 【重要】默认转化的格式为png,也可设置为其他格式
-                        // var img = Canvas2Image.convertToJPEG(canvas, canvas.width, canvas.height);
-
-                        var img = new Image(), dataUrl = canvas.toDataURL("image/png");
-                        img.src = dataUrl;
-                        img.width = window.innerWidth;
-                        img.height = window.innerHeight;
-                        document.querySelector('.form').style.display = 'none'
-                        document.querySelector('.sub_form').style.display = 'none'
-                        document.querySelector('.shareInfo').style.display = 'block'
-                        document.body.appendChild(img);
-
-                        
-                        // console.log(document.querySelector('img'))
-
-
-                    });
+var btnSubmit = document.querySelector('.sub_form')
+if(btnSubmit){
+    btnSubmit.onclick = function () {
+        weui.dialog({
+            title: '已点亮祝福',
+            content: '<div class="dialog_contemt"><p class="pop_school">我是清华大学校友</p><p class="pop_addr">我在湖北</p><p>祝福母校：<span>越来越好</span></p>' +
+            '<div class="img_div"><img src="./img/123.png" alt=""></div></div>',
+            className: 'pop_div',
+            buttons: [{
+                label: '返回首页',
+                type: 'default',
+                onClick: function () {
+                    // alert('取消')
                 }
+            }, {
+                label: '保存图片分享',
+                type: 'primary',
+                onClick: function () {
+                    // alert('确定')
+                    /* 保存HTML为图片 */
+                    document.querySelector('.weui-dialog__ft').style.display = 'none'
+                    // html2canvas(document.querySelector(".weui-dialog")).then(function(canvas){
+                    //     // var imgUri = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); // 获取生成的图片的url
+                    //     // window.location.href= imgUri;
+                    //     // console.log(imgUri)
+                    //     var img = new Image(), dataUrl = canvas.toDataURL("image/png");
+                    //     img.src = dataUrl;
+                    //     // img.onload = function () {
+                    //     //     dataUrl = canvas.toDataURL("image/png")
+                    //     //s }
+                    //     document.body.appendChild(img)
+                    //
+                    // });
+
+                    convert2canvas()
+                    function convert2canvas() {
+
+                        var cntElem = document.querySelector(".weui-dialog__bd");
+
+                        var shareContent = cntElem;//需要截图的包裹的（原生的）DOM 对象
+                        var width = shareContent.offsetWidth; //获取dom 宽度
+                        var height = shareContent.offsetHeight; //获取dom 高度
+                        var canvas = document.createElement("canvas"); //创建一个canvas节点
+                        var scale = 2; //定义任意放大倍数 支持小数
+                        canvas.width = width * scale; //定义canvas 宽度 * 缩放
+                        canvas.height = height * scale; //定义canvas高度 *缩放
+                        var content = canvas.getContext("2d")
+                        content.scale(scale,scale); //获取context,设置scale
+                        var rect = shareContent.getBoundingClientRect();//获取元素相对于视察的偏移量
+                        content.translate(-rect.left,-rect.top);//设置context位置，值为相对于视窗的偏移量负值，让图片复位
+                        var opts = {
+                            dpi: window.devicePixelRatio*2,
+                            scale: scale, // 添加的scale 参数
+                            canvas: canvas, //自定义 canvas
+                            // logging: true, //日志开关，便于查看html2canvas的内部执行流程
+                            width: width, //dom 原始宽度
+                            height: height,
+                            useCORS: true // 【重要】开启跨域配置
+                        };
+
+                        html2canvas(shareContent, opts).then(function (canvas) {
+
+                            var context = canvas.getContext('2d');
+                            // 【重要】关闭抗锯齿
+                            context.mozImageSmoothingEnabled = false;
+                            context.webkitImageSmoothingEnabled = false;
+                            context.msImageSmoothingEnabled = false;
+                            context.imageSmoothingEnabled = false;
+
+                            // 【重要】默认转化的格式为png,也可设置为其他格式
+                            // var img = Canvas2Image.convertToJPEG(canvas, canvas.width, canvas.height);
+
+                            var img = new Image(), dataUrl = canvas.toDataURL("image/png");
+                            img.src = dataUrl;
+                            img.width = window.innerWidth;
+                            img.height = window.innerHeight;
+                            document.querySelector('.form').style.display = 'none'
+                            document.querySelector('.sub_form').style.display = 'none'
+                            document.querySelector('.shareInfo').style.display = 'block'
+                            document.body.appendChild(img);
+
+
+                            // console.log(document.querySelector('img'))
+
+
+                        });
+                    }
 
 
 
-            }
-        }]
-    });
+                }
+            }]
+        });
+    }
+
 }
 
 

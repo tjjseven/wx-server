@@ -17,6 +17,7 @@
     "morgan": "~1.9.0"
   },
   "devDependencies": {
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "xml2js": "^0.4.19"
   }
 }

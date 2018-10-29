@@ -4,13 +4,10 @@ var path = require('path');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var crypto = require('crypto'),  //引入加密模块
-    config = require('./config');//引入配置文件
-    wechat = require('./wechat/wc')
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var components = require('./wechat/components');
+var config = require('./config');//引入配置文件
+var router = require('./routes/index');
+// var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -36,10 +33,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(wechat())
+app.use(components())
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', router);
+// app.use('/users', usersRouter);
 
 
 
