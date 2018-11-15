@@ -24,9 +24,11 @@
 
 
 <script>
+    window.onload = function () {
         TweenMax.to(".door", 0.5, {bottom:0, repeat:0});
         TweenMax.to(".people", 0.5, {right:0, repeat:0});
         TweenMax.to(".go_home", 0.5, {rotation:20, repeat:-1, yoyo:true, yoyoEase:false});
+    }
 
 </script>
 </html>

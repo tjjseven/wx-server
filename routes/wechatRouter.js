@@ -27,7 +27,7 @@ module.exports = function (router) {
                         "sub_button":[  //二级菜单
                             {
                                 "type":"view",
-                                "name":"测试",
+                                "name":"测试网页",
                                 // "url":"http://127.0.0.1:8080/mobile/wechat/home.html"
                                 "url":"http://tang.ngrok.xiaomiqiu.cn"
                             },
@@ -143,8 +143,8 @@ module.exports = function (router) {
                                     //回复消息
                                     var content = "欢迎关注 tseven 公众号，回复以下数字：\n";
                                     content += "1.你是谁\n";
-                                    content += "2.关于Node.js\n";
-                                    content += "3.\n";
+                                    content += "2.关于公众号\n";
+                                    content += "3.公众号开发\n";
                                     content += "回复 “文章”  可以得到图文推送哦~\n";
                                     reportMsg = msg.txtMsg(fromUser,toUser,content);
                                     break;
@@ -164,10 +164,10 @@ module.exports = function (router) {
                                 //根据消息内容返回消息信息
                                 switch(result.Content){
                                     case '1':
-                                        reportMsg = msg.txtMsg(fromUser,toUser,'你猜');
+                                        reportMsg = msg.txtMsg(fromUser,toUser,'tseven');
                                         break;
                                     case '2':
-                                        reportMsg = msg.txtMsg(fromUser,toUser,'Node.js是一个开放源代码、跨平台的JavaScript语言运行环境，采用Google开发的V8运行代码,使用事件驱动、非阻塞和异步输入输出模型等技术来提高性能，可优化应用程序的传输量和规模。这些技术通常用于数据密集的事实应用程序');
+                                        reportMsg = msg.txtMsg(fromUser,toUser,'测试公众号');
                                         break;
                                     case '3':
                                         var contentText = [
@@ -180,9 +180,12 @@ module.exports = function (router) {
                                         break;
                                     case '文章':
                                         var contentArr1 = [
-                                            {Title:"Node.js 微信自定义菜单", Description:"使用Node.js实现自定义微信菜单", PicUrl:"http://img.blog.csdn.net/20170605162832842?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHZrQ29kZXI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast", Url:"http://blog.csdn.net/hvkcoder/article/details/72868520"},
-                                            {Title:"Node.js access_token的获取、存储及更新",Description:"Node.js access_token的获取、存储及更新",PicUrl:"http://img.blog.csdn.net/20170528151333883?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHZrQ29kZXI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast",Url:"http://blog.csdn.net/hvkcoder/article/details/72783631"},
-                                            {Title:"Node.js 接入微信公众平台开发",Description:"Node.js 接入微信公众平台开发",PicUrl:"http://img.blog.csdn.net/20170605162832842?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHZrQ29kZXI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast",Url:"http://blog.csdn.net/hvkcoder/article/details/72765279"}
+                                            {Title:"Node.js 微信自定义菜单", Description:"使用Node.js实现自定义微信菜单",
+                                                PicUrl:"", Url:"http://blog.csdn.net/hvkcoder/article/details/72868520"},
+                                            {Title:"Node.js access_token的获取、存储及更新",Description:"Node.js access_token的获取、存储及更新",
+                                                PicUrl:"", Url:"http://blog.csdn.net/hvkcoder/article/details/72783631"},
+                                            {Title:"Node.js 接入微信公众平台开发",Description:"Node.js 接入微信公众平台开发",
+                                                PicUrl:"",Url:"http://blog.csdn.net/hvkcoder/article/details/72765279"}
                                         ];
                                         //回复图文消息
                                         reportMsg = msg.graphicMsg(fromUser,toUser,contentArr1);

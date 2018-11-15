@@ -8,6 +8,7 @@
     <script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
     <!--<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js "></script>-->
     <script type="text/javascript" src="./javascripts/gps.js"></script>
+    <script src="./wxdzH5/js/TweenMax.min.js"> </script>
     <script src="http://api.map.baidu.com/api?v=2.0&ak=pBZ1pAlmftcQrQleqITRKqi6UrewIuNe"></script>
     <style>
         body{
@@ -95,7 +96,7 @@
                 //         console.log('失败')
                 //     }
                 // });
-                setTimeout(function(){
+                // setTimeout(function(){
                     // API 1 请求位置
                     wx.getLocation({
                         type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -127,7 +128,7 @@
 
                             // baiduLocation(114.4433773302, 30.4878932090);
                             // baiduLocation(longitude, latitude)
-
+                            // 微信内置地图
                             // wx.openLocation({
                             //     latitude: data.result[0].y, // 纬度，浮点数，范围为90 ~ -90
                             //     longitude: data.result[0].x, // 经度，浮点数，范围为180 ~ -180。
@@ -142,23 +143,73 @@
                     function baiduLocation(longitude, latitude){
                         var map = new BMap.Map("map");          // 创建地图实例
                         var point = new BMap.Point(longitude, latitude);  // 创建点坐标
+                        map.centerAndZoom(point, 5);                 // 初始化地图，设置中心点坐标和地图级别
                         map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+                        // map.centerAndZoom('武汉');                 // 初始化地图，设置中心点坐标和地图级别
                         var marker = new BMap.Marker(point);        // 创建标注
                         map.addOverlay(marker);                     // 将标注添加到地图中
-                        marker.setAnimation(BMAP_ANIMATION_BOUNCE) //跳动的动画
+                        // marker.setAnimation(BMAP_ANIMATION_BOUNCE);//跳动的动画 mobile端无效
+                        // marker.setRotation(30);//旋转图标
+                        setTimeout(function () {
+                        var mTop = document.querySelectorAll('.BMap_Marker')
+                            console.log(mTop)
+                            for (var i = 0; i < mTop.length; i++) {
+                                TweenMax.to(mTop[i], Math.random() + .2, {repeat: -1, top: parseInt(mTop[i].style.top) - Math.random() * 30, yoyo: true});
+                                console.log(Math.random() * 20)
+                            }
+                        },500)
+                        // console.log(BMAP_ANIMATION_BOUNCE)
+                        // 更改图标
+                        // var myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+                        // var marker2 = new BMap.Marker(point,{icon:myIcon});  // 创建标注
+                        // marker2.setAnimation(BMAP_ANIMATION_BOUNCE)
+                        // map.addOverlay(marker2);
+                        // 随机向地图添加2个标注
+                        var bounds = map.getBounds();
+                        var sw = bounds.getSouthWest();
+                        var ne = bounds.getNorthEast();
+                        var lngSpan = Math.abs(sw.lng - ne.lng);
+                        var latSpan = Math.abs(ne.lat - sw.lat);
+                        for (var i = 0; i < 10; i ++) {
+                            var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+                            addMarker(point);
+                        }
+                        // 编写自定义函数,创建标注
+                        function addMarker(point){
+                            var marker = new BMap.Marker(point);
+                            map.addOverlay(marker);
+                        }
 
-                        var myGeo = new BMap.Geocoder();
                         // 根据坐标得到地址描述
+                        var myGeo = new BMap.Geocoder();
                         myGeo.getLocation(new BMap.Point(longitude, latitude), function(result){
                             if (result){
                                 console.log("您当前的位置：" + result.address);
                                 console.log(result)
                                 document.querySelector('span').innerText = result.address
+                                var address = "您当前的位置：" + result.address
+                                // 设置标注信息
+                                var opts = {
+                                    position : point,    // 指定文本标注所在的地理位置
+                                    offset   : new BMap.Size(-70, -50)    //设置文本偏移量
+                                }
+                                var label = new BMap.Label(address, opts);  // 创建文本标注对象
+                                label.setStyle({
+                                    color : "red",
+                                    fontSize : "12px",
+                                    height : "20px",
+                                    lineHeight : "20px",
+                                    fontFamily:"微软雅黑",
+                                    padding:"3px",
+                                    borderRadius: '5px'
+                                });
+                                marker.setLabel(label); // 将信息添加到地图
+
                             }
                         });
                     }
 
-                },3000);
+                // },3000);
 
                 // API 2 分享到QQ
                 wx.onMenuShareQQ({

@@ -14,13 +14,18 @@
 </head>
 <body>
     <p>获取公众号配置信息</p>
+    <p>用户授权</p>
     <a href="jssdk.html">配置jssdk 权限</a>
-    <a href="./dzH5/index.html">H5点亮1</a>
-    <a href="./wxdzH5/index.html">点亮2</a>
+    <a href="./dzH5/index.html">截图点亮</a>
+    <a href="./wxdzH5/index.html">动画点亮</a>
+    <a href="http://192.168.2.104:8081">订餐APP</a>
     <p class="msg"></p>
     <script type="text/javascript">
         window.onload = function (ev) {
             // var url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET'
+            if(localStorage.getItem('code')){
+               return
+            }
             $.ajax({
                 type: 'get',
                 url: '/user',
@@ -36,8 +41,8 @@
                     window.localStorage.setItem('nonceStr', data.nonceStr) // 生成签名的随机串
                     window.localStorage.setItem('signature', data.signature) // 签名
 
-                    var APPID = data.appID
-                    getUserInfo(APPID)
+                    // getUserInfo(data.appID)
+                    // saveCode()
 
                 },// ajax err
                 error: function (err) {
@@ -48,10 +53,15 @@
             // 2 获取授权
             // location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${APPID}&redirect_uri=${rui}&response_type=${code}&scope=${SCOPE}&state=STATE#wechat_redirect`
             function getUserInfo(APPID) {
-                const REDIRECT_URI= 'http://tang.ngrok.xiaomiqiu.cn/dzH5/index.html';
+                const REDIRECT_URI= 'http://tang.ngrok.xiaomiqiu.cn';
                 var url_user = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ APPID +
                     '&redirect_uri='+ REDIRECT_URI + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
                 location.href = url_user
+            }
+            // 3 保存code
+            function saveCode() {
+                var code = location.search.split('?')[1].split('&')[0].split('=')[1]
+                localStorage.setItem('code', code)
             }
         }
     </script>
