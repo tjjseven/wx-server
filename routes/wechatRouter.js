@@ -41,7 +41,7 @@ module.exports = function (router) {
                     {
                         "type":"view",  //view表示跳转
                         "name":"tseven",
-                        "url":"http://www.tseven.top"
+                        "url":"http://www.tseven.top/mysite"
                     },
                     {
                         "type":"click",   //表示事件
